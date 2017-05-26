@@ -71,6 +71,13 @@ class Plugin extends PluginBase
                 'order'       => 200,
 
                 'sideMenu' => [
+                    'languages' => [
+                        'label'       => 'rainlab.pages::lang.language.menu_label',
+                        'icon'        => 'icon-language',
+                        'url'         => 'javascript:;',
+                        'attributes'  => ['data-menu-item'=>'languages'],
+                        'permissions' => ['rainlab.pages.manage_languages']
+                    ],
                     'pages' => [
                         'label'       => 'rainlab.pages::lang.page.menu_label',
                         'icon'        => 'icon-files-o',

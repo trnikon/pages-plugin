@@ -1,0 +1,62 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0
+
+services:
+  - mysql
+
+branches:
+  only: #only builds these branches
+    - dev
+    - master
+
+env:
+  global:
+    - DOMAIN=xxx.tld
+    - CI_REPORTS=shippable/testresults #directory where the reports will be saved, this is standard
+    - DEPLOY_BRANCH=master
+    - DEPLOY_TO=production
+    - DEPLOY_PATH=~/$DEPLOY_TO.$DOMAIN.git
+    - PORT=222
+    - USER=user
+    - SERVER=78.46.191.194 #OR aserver.com.dedi3501.your-server.de
+    - DEPLOY_URL_SCHEMA=ssh://$USER@$SERVER:$PORT/$DEPLOY_PATH
+
+build:
+  ci:
+#    - sudo apt-get update
+    - mysql -e 'create database if not exists october_test;'
+    - composer self-update -n
+    - composer install --prefer-source --no-interaction --no-progress
+#    - cp .env.testing .env
+    - php artisan october:install
+    - php artisan october:up #database migrations
+    - php artisan cache:clear
+    - php artisan october:fresh #remove demo data
+#    - ssh-agent bash -c 'ssh-add /home/shippable/.ssh/id_rsa; ssh -i /home/shippable/.ssh/id_rsa -vT git@bitbucket.org'
+    - git remote add $DEPLOY_TO $DEPLOY_URL_SCHEMA
+#    - rsync -avz -e "ssh -p $PORT" --exclude 'shippable*' --exclude '.git' . $USER@$SERVER:$PATH --delete --delete-excluded #this deploys master branch to production using rsync
+#    - mkdir -p shippable/testresults
+#    - mkdir -p shippable/codecoverage
+#    - phpunit  --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
+#    - php artisan october:util git pull
+#    - composer install --prefer-dist -n #faster
+#    - npm install
+#    - gulp
+#    - npm test
+  on_success:
+#    - git add .
+#    - git commit -m "[ci skip] Added changes"
+#    - git push $DEPLOY_TO $DEPLOY_BRANCH
+  on_failure:
+#    - ./doSomething.sh
+  cache: true
+
+integrations:
+  notifications:
+    - integrationName: shippable-slack #name of the integration on shippable.com
+      type: slack
+      recipients:
+        - "#shippable"
