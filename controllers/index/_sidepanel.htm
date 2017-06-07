@@ -1,10 +1,6 @@
 <div class="layout control-scrollpanel" id="pages-side-panel">
     <div class="layout-cell">
         <div class="layout-relative fix-button-container">
-            <form class="layout hide" data-content-id="languages" data-object-type="language" data-type-icon="oc-icon-language" onsubmit="return false">
-                <?= $this->widget->languageList->render() ?>
-            </form>
-
             <form class="layout" data-content-id="pages" data-object-type="page" data-type-icon="oc-icon-files-o" onsubmit="return false">
                 <?= $this->widget->pageList->render() ?>
             </form>
@@ -20,6 +16,12 @@
             <form class="layout hide" data-content-id="snippet" data-object-type="snippet" data-type-icon="icon-newspaper-o" onsubmit="return false">
                 <?= $this->widget->snippetList->render() ?>
             </form>
+
+            <?php if($hasLocales):?>
+            <form class="layout hide" data-content-id="languages" data-object-type="language" data-type-icon="oc-icon-language" onsubmit="return false">
+                <?= $this->widget->languageList->render() ?>
+            </form>
+            <?php endif;?>
         </div>
     </div>
 </div>

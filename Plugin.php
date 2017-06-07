@@ -9,6 +9,7 @@ use RainLab\Pages\Classes\Snippet;
 use RainLab\Pages\Classes\SnippetManager;
 use Cms\Classes\Theme;
 use Cms\Classes\Controller as CmsController;
+use RainLab\Translate\Models\Locale;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -36,6 +37,11 @@ class Plugin extends PluginBase
     public function registerPermissions()
     {
         return [
+            'rainlab.pages.manage_languages' => [
+                'tab'   => 'rainlab.pages::lang.page.tab',
+                'order' => 200,
+                'label' => 'rainlab.pages::lang.page.manage_languages'
+            ],
             'rainlab.pages.manage_pages' => [
                 'tab'   => 'rainlab.pages::lang.page.tab',
                 'order' => 200,
@@ -61,7 +67,7 @@ class Plugin extends PluginBase
 
     public function registerNavigation()
     {
-        return [
+        $nav = [
             'pages' => [
                 'label'       => 'rainlab.pages::lang.plugin.name',
                 'url'         => Backend::url('rainlab/pages'),
@@ -71,13 +77,6 @@ class Plugin extends PluginBase
                 'order'       => 200,
 
                 'sideMenu' => [
-                    'languages' => [
-                        'label'       => 'rainlab.pages::lang.language.menu_label',
-                        'icon'        => 'icon-language',
-                        'url'         => 'javascript:;',
-                        'attributes'  => ['data-menu-item'=>'languages'],
-                        'permissions' => ['rainlab.pages.manage_languages']
-                    ],
                     'pages' => [
                         'label'       => 'rainlab.pages::lang.page.menu_label',
                         'icon'        => 'icon-files-o',
@@ -109,6 +108,21 @@ class Plugin extends PluginBase
                 ]
             ]
         ];
+
+        //TODO make sure translate plugin is installed
+        if(Locale::all()->count() > 1){
+            $nav['pages']['sideMenu'] += [
+                'languages' => [
+                    'label'       => 'rainlab.pages::lang.language.menu_label',
+                    'icon'        => 'icon-language',
+                    'url'         => 'javascript:;',
+                    'attributes'  => ['data-menu-item'=>'languages'],
+                    'permissions' => ['rainlab.pages.manage_languages']
+                ],
+            ];
+        }
+
+        return $nav;
     }
 
     public function boot()

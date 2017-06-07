@@ -45,19 +45,38 @@
   position: absolute;
   width: 17px;
   height: 19px;
+  top: 13px;
   content: ' ';
   background-image: url(../images/snippet-icons.png);
   background-position: 0 0;
   background-repeat: no-repeat;
   background-size: 34px auto;
   left: 18px;
-  top: 13px;
+  top: 17px;
 }
 .control-filelist.snippet-list li > a:hover:before {
   background-position: 0 -21px;
 }
 .control-filelist.snippet-list li.group ul li > a:before {
   left: 34px;
+}
+.control-list.language-list li > a {
+  position: relative;
+}
+.control-list.language-list li > a:before {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 17px;
+  top: 18px;
+  content: ' ';
+  background-image: url(../images/menu-icons.png);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 36px auto;
+}
+.control-list.language-list li > a:hover:before {
+  background-position: 0 -60px;
 }
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
   .control-filelist.menu-list li > a:before {
@@ -83,7 +102,7 @@
   }
 }
 .fancy-layout .pagesTextEditor {
-  border-left: 1px solid #bdc3c7 !important;
+  border-left: 1px solid #d1d6d9 !important;
 }
 .control-richeditor [data-snippet]:before {
   content: attr(data-name);
@@ -93,7 +112,7 @@
   width: 17px;
   height: 19px;
   left: 18px;
-  top: 17px;
+  top: 13px;
   content: ' ';
   background-image: url(../images/snippet-icons.png);
   background-position: 0 0;
@@ -114,13 +133,14 @@
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
 }
+#layout-sidenav #language-code {
+  position: absolute;
+  right: 28px;
+  top: 39px;
+}
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
   .control-richeditor [data-snippet]:after {
     background-position: 0px -21px;
     background-size: 17px auto;
   }
-}
-.form-group.secondary-tab {
-    padding: 10px 20px;
-    background: #fff;
 }

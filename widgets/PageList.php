@@ -1,5 +1,6 @@
 <?php namespace RainLab\Pages\Widgets;
 
+use Illuminate\Support\Facades\Session;
 use Str;
 use Lang;
 use Input;
@@ -25,6 +26,8 @@ class PageList extends WidgetBase
 
     protected $dataIdPrefix;
 
+    protected $inputLocale;
+
     /**
      * @var string Message to display when the Delete button is clicked.
      */
@@ -39,6 +42,7 @@ class PageList extends WidgetBase
     {
         $this->alias = $alias;
         $this->theme = Theme::getEditTheme();
+        $this->inputLocale = Session::get('rainlab.translate.inputLocale');
         $this->dataIdPrefix = 'page-'.$this->theme->getDirName();
 
         parent::__construct($controller, []);
