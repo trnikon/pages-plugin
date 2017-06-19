@@ -1,5 +1,8 @@
 <?php namespace RainLab\Pages\Controllers;
 
+use Illuminate\Support\Facades\Session;
+use RainLab\Pages\Widgets\LanguageList;
+use RainLab\Translate\Models\Locale;
 use Url;
 use Lang;
 use Flash;
@@ -57,6 +60,7 @@ class Index extends Controller
             new PageList($this, 'pageList');
             new MenuList($this, 'menuList');
             new SnippetList($this, 'snippetList');
+            new LanguageList($this, 'languageList');
 
             new TemplateList($this, 'contentList', function() {
                 return $this->getContentTemplateList();
@@ -76,6 +80,7 @@ class Index extends Controller
         $this->addJs('/modules/backend/assets/js/october.treeview.js', 'core');
         $this->addJs('/plugins/rainlab/pages/assets/js/pages-page.js');
         $this->addJs('/plugins/rainlab/pages/assets/js/pages-snippets.js');
+        $this->addJs('/plugins/rainlab/pages/assets/js/pages-languages.js');
         $this->addCss('/plugins/rainlab/pages/assets/css/pages.css');
 
         // Preload the code editor class as it could be needed
@@ -85,6 +90,13 @@ class Index extends Controller
         $this->bodyClass = 'compact-container';
         $this->pageTitle = 'rainlab.pages::lang.plugin.name';
         $this->pageTitleTemplate = '%s Pages';
+
+        if(Locale::all()->count() > 1){
+            $this->vars['hasLocales'] = true;
+        }
+        else{
+            $this->vars['hasLocales'] = false;
+        }
 
         if (Request::ajax() && Request::input('formWidgetAlias')) {
             $this->bindFormWidgetToController();
@@ -405,6 +417,7 @@ class Index extends Controller
                 $this->addPagePlaceholders($widget, $object);
                 $this->addPageSyntaxFields($widget, $object);
             });
+
         }
 
         return $widget;

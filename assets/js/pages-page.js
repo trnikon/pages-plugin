@@ -453,8 +453,11 @@
             $panel.append($collapseIcon)
 
             if (!hasSecondaryTabs) {
-                $('.tab-pane', $primaryPanel).addClass('pane-compact')
+                //TODO why?
+                // $('.tab-pane', $primaryPanel).addClass('pane-compact')
             }
+
+            $('.form-group[data-field-name="markup"]').parent().addClass('pane-compact')
 
             $collapseIcon.click(function(){
                 $panel.toggleClass('collapsed')

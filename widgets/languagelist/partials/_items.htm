@@ -1,0 +1,13 @@
+<?php if ($items): ?>
+    <select
+        id="languages-select"
+        name="languages-select"
+        class="form-control custom-select"
+        data-request="<?= $this->getEventHandler('onLanguageSelect') ?>">
+        <?php foreach ($items as $item): ?>
+        <option <?= (Session::get('rainlab.translate.inputLocale') == $item->code) ? 'selected' : null; ?> value="<?= e($item->code) ?>"><?= e($item->name) ?></option>
+        <?php endforeach ?>
+    </select>
+<?php else: ?>
+    <p class="no-data"><?= e(trans($this->noRecordsMessage)) ?></p>
+<?php endif ?>

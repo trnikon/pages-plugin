@@ -5,6 +5,9 @@ return [
         'name' => 'Pages',
         'description' => 'Pages & menus features.',
     ],
+    'language' => [
+        'menu_label' => 'Languages',
+    ],
     'page' => [
         'menu_label' => 'Pages',
         'delete_confirmation' => 'Do you really want to delete selected pages? This will also delete the subpages, if any.',

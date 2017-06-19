@@ -46,6 +46,12 @@ tabs:
             type: checkbox
             comment: rainlab.pages::lang.editor.navigation_hidden_comment
 
+        markup:
+            tab: rainlab.pages::lang.editor.content
+            type: richeditor
+            stretch: true
+            size: huge
+
         viewBag[meta_title]:
             tab: cms::lang.editor.meta
             label: cms::lang.editor.meta_title
@@ -55,12 +61,3 @@ tabs:
             label: cms::lang.editor.meta_description
             type: textarea
             size: tiny
-
-secondaryTabs:
-    stretch: true
-    fields:
-        markup:
-            tab: rainlab.pages::lang.editor.content
-            type: richeditor
-            stretch: true
-            size: huge
